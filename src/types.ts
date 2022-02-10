@@ -224,3 +224,7 @@ export enum StatusType {
   WARNING = "warning",
   SUCCESS = "success"
 }
+
+export type RelayToFlat<T extends { edges: Array<{ node: any }> }> = Array<
+  T["edges"][0]["node"]
+>;
