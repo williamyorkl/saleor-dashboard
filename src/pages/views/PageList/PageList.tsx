@@ -30,7 +30,7 @@ import {
   PageListUrlQueryParams,
   pageUrl
 } from "../../urls";
-import { getSortQueryVariables } from "./sort";
+import { getFilterVariables, getSortQueryVariables } from "./sort";
 
 interface PageListProps {
   params: PageListUrlQueryParams;
@@ -55,6 +55,7 @@ export const PageList: React.FC<PageListProps> = ({ params }) => {
   const queryVariables = React.useMemo(
     () => ({
       ...paginationState,
+      filter: getFilterVariables(params),
       sort: getSortQueryVariables(params)
     }),
     [params, settings.rowNumber]
@@ -124,6 +125,10 @@ export const PageList: React.FC<PageListProps> = ({ params }) => {
                 onUpdateListSettings={updateListSettings}
                 onRowClick={id => () => navigate(pageUrl(id))}
                 onSort={handleSort}
+                actionDialogOpts={{
+                  open: openModal,
+                  close: closeModal
+                }}
                 toolbar={
                   <>
                     <Button
@@ -166,6 +171,7 @@ export const PageList: React.FC<PageListProps> = ({ params }) => {
                 isChecked={isSelected}
                 selected={listElements.length}
                 sort={getSortParams(params)}
+                params={params}
                 toggle={toggle}
                 toggleAll={toggleAll}
               />
