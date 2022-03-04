@@ -59,7 +59,7 @@ function makeMutation<TData, TVariables>(
       },
       refetchQueries,
       onError: (err: ApolloError) => {
-        if (err.graphQLErrors) {
+        if (err.graphQLErrors.length > 0) {
           if (hasError(err, GqlErrors.ReadOnlyException)) {
             notify({
               status: "error",
