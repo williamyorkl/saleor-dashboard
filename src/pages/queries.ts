@@ -16,6 +16,7 @@ const pageList = gql`
     $last: Int
     $before: String
     $sort: PageSortingInput
+    $filter: PageFilterInput
   ) {
     pages(
       before: $before
@@ -23,6 +24,7 @@ const pageList = gql`
       first: $first
       last: $last
       sortBy: $sort
+      filter: $filter
     ) {
       edges {
         node {
