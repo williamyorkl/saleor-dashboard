@@ -17,6 +17,7 @@ import {
   useProductAttributeAssignmentUpdateMutation,
   useProductTypeUpdateMutation
 } from "@saleor/productTypes/mutations";
+import { ProductTypeAttributeReorder } from "@saleor/productTypes/types/ProductTypeAttributeReorder";
 import { ReorderEvent } from "@saleor/types";
 import { ProductAttributeType } from "@saleor/types/globalTypes";
 import createMetadataUpdateHandler from "@saleor/utils/handlers/metadataUpdateHandler";
@@ -221,6 +222,18 @@ export const ProductTypeUpdate: React.FC<ProductTypeUpdateProps> = ({
             navigate(productTypeListUrl(), { replace: true });
           }
         };
+
+        const handleAttributeReorderSuccess = (
+          data: ProductTypeAttributeReorder
+        ) => {
+          if (data.productTypeReorderAttributes.errors.length === 0) {
+            notify({
+              status: "success",
+              text: intl.formatMessage(commonMessages.savedChanges)
+            });
+          }
+        };
+
         const handleSubmit = createMetadataUpdateHandler(
           data?.productType,
           handleProductTypeUpdate,
@@ -234,7 +247,7 @@ export const ProductTypeUpdate: React.FC<ProductTypeUpdateProps> = ({
             onAssignAttribute={handleAttributeAssignSuccess}
             onUnassignAttribute={handleAttributeUnassignSuccess}
             onProductTypeDelete={handleProductTypeDeleteSuccess}
-            onProductTypeAttributeReorder={() => undefined}
+            onProductTypeAttributeReorder={handleAttributeReorderSuccess}
           >
             {({
               assignAttribute,
