@@ -45,7 +45,7 @@ function usePageTypeDelete({
   });
 
   const selectedPagesAssignedToDeleteUrl = pageListUrl({
-    pageTypes
+    pageType: pageTypes
   });
 
   const assignedItemsCount =
