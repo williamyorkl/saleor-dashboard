@@ -1,6 +1,16 @@
 FROM node:14 as builder
 WORKDIR /app
 COPY package*.json ./
+
+# 添加代理
+ENV MY_PROXY_URL="http://192.168.150.120:7890"
+ENV HTTP_PROXY=$MY_PROXY_URL \
+    HTTPS_PROXY=$MY_PROXY_URL \
+    FTP_PROXY=$MY_PROXY_URL \
+    http_proxy=$MY_PROXY_URL \
+    https_proxy=$MY_PROXY_URL \
+    ftp_proxy=$MY_PROX
+
 RUN npm install
 COPY . .
 ARG APP_MOUNT_URI
