@@ -90,11 +90,12 @@ const PluginsDetailsPage: React.FC<PluginsDetailsPageProps> = ({
               }
             });
 
-            selectedConfig.configuration.map(item => {
-              if (item.name === name) {
-                item.value = value;
-              }
-            });
+            // FIXME - selectedConfig.configuration为只读值，不能修改（新数据应该额外创建一份）；但是为什么要写这一段？（因为去掉功能是好的，可以正常发送请求）
+            // selectedConfig.configuration.map(item => {
+            //   if (item.name === name) {
+            //     item.value = value;
+            //   }
+            // });
           }
 
           set(newData);
